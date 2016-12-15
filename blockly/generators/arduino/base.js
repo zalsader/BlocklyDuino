@@ -29,8 +29,10 @@ goog.require('Blockly.Arduino');
 
 
 Blockly.Arduino.base_delay = function() {
-  var delay_time = Blockly.Arduino.valueToCode(this, 'DELAY_TIME', Blockly.Arduino.ORDER_ATOMIC) || '1000'
-  var code = 'delay(' + delay_time + ');\n';
+  var delay_time = Number(Blockly.Arduino.valueToCode(this, 'DELAY_TIME', Blockly.Arduino.ORDER_ATOMIC) || '1');
+  var unit = Number(this.getFieldValue('UNIT'));
+  delay_time = Math.round(unit * delay_time);
+  var code = 'delay(' + String(delay_time) + ');\n';
   return code;
 };
 
