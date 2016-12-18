@@ -29,22 +29,12 @@ goog.require('Blockly.Arduino');
 
 
 Blockly.Arduino.controls_if = function() {
-  // If/elseif/else condition.
-  var n = 0;
-  var argument = Blockly.Arduino.valueToCode(this, 'IF' + n,
+  var argument = Blockly.Arduino.valueToCode(this, 'IF0',
       Blockly.Arduino.ORDER_NONE) || 'false';
-  var branch = Blockly.Arduino.statementToCode(this, 'DO' + n);
+  var branch = Blockly.Arduino.statementToCode(this, 'DO0');
   var code = 'if (' + argument + ') {\n' + branch + '\n}';
-  for (n = 1; n <= this.elseifCount_; n++) {
-    argument = Blockly.Arduino.valueToCode(this, 'IF' + n,
-      Blockly.Arduino.ORDER_NONE) || 'false';
-    branch = Blockly.Arduino.statementToCode(this, 'DO' + n);
-    code += ' else if (' + argument + ') {\n' + branch + '}';
-  }
-  if (this.elseCount_) {
-    branch = Blockly.Arduino.statementToCode(this, 'ELSE');
-    code += ' else {\n' + branch + '\n}';
-  }
+  branch = Blockly.Arduino.statementToCode(this, 'ELSE');
+  code += ' else {\n' + branch + '\n}';
   return code + '\n';
 };
 
